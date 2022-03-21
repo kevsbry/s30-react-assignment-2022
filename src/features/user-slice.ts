@@ -29,9 +29,12 @@ export const fetchUser = createAsyncThunk<IUser>(
     const data = res.data as { results: User[] };
     const user = data.results[0];
 
+    dispatch(saveUser(user));
+
     return {
       name: user.name,
       email: user.email,
+      picture: user.picture,
       isError: false,
       isLoading: false,
     };
@@ -45,19 +48,28 @@ const userSlice = createSlice({
     setLoadingStatus: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    saveUser: (_state, action: PayloadAction<User>) => {
+      const { name, email, picture } = action.payload;
+
+      const users = JSON.parse(localStorage.getItem("users") ?? "[]") as User[];
+      users.push({ picture, name, email });
+
+      localStorage.setItem("users", JSON.stringify(users));
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
-      const { name, email, isError, isLoading } = action.payload;
+      const { name, email, isError, isLoading, picture } = action.payload;
 
       state.name = name;
       state.email = email;
       state.isLoading = isLoading;
       state.isError = isError;
+      state.picture = picture;
     });
   },
 });
 
-export const { setLoadingStatus } = userSlice.actions;
+export const { setLoadingStatus, saveUser } = userSlice.actions;
 
 export default userSlice.reducer;

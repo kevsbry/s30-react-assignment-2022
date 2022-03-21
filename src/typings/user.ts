@@ -5,4 +5,9 @@ export interface User {
     last: string;
   };
   email?: string;
+  picture?: {
+    large: string;
+    medium: string;
+    small: string;
+  };
 }
