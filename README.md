@@ -1,4 +1,4 @@
-# NYT Article Finder (Grover Frontend Code Challenge)
+# Random User Generator (S30 Frontend Code Challenge)
 
 Random user generator that uses [randomuser.me api]
 
