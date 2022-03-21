@@ -11,7 +11,7 @@ const SavedUsersPage = () => {
   }, []);
 
   return (
-    <div className="bg-red-200 min-h-screen p-4 flex flex-row flex-wrap">
+    <div className="bg-page min-h-screen p-4 flex flex-row flex-wrap">
       {savedUsers.map(({ name, email }, i) => (
         <UserBasicInfoCard
           key={`${i}-${email}`}
