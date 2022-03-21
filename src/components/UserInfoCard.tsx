@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { fetchUser } from "../features/user-slice";
 
 import { AiOutlineLoading, AiOutlineReload } from "react-icons/ai";
+import { BiErrorCircle } from "react-icons/bi";
 
 const UserDetails = ({
   picture,
@@ -46,7 +47,7 @@ const UserInfoCard = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center prose prose-slate bg-white rounded-md pt-12 pb-12 min-w-[340px] min-h-[320px]">
+    <div className="relative flex flex-col items-center justify-center prose prose-slate bg-white rounded-md pt-12 pb-12 min-w-[340px] min-h-[320px] xs:min-w-[280px] xd:min-h-[260px]">
       <button
         disabled={user.isLoading}
         onClick={refreshUser}
@@ -59,7 +60,7 @@ const UserInfoCard = () => {
 
       {user.isLoading ? (
         <AiOutlineLoading className="text-slate-400 animate-spin" size={50} />
-      ) : (
+      ) : !user.isError ? (
         <UserDetails
           picture={user.picture?.large ?? ""}
           title={user.name?.title ?? ""}
@@ -67,6 +68,8 @@ const UserInfoCard = () => {
           last={user.name?.last ?? ""}
           email={user.email ?? ""}
         />
+      ) : (
+        <BiErrorCircle className="text-slate-700" size={50} />
       )}
     </div>
   );
